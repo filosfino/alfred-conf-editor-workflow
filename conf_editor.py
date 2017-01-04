@@ -1,35 +1,58 @@
- # encoding: utf-8
+# encoding: utf-8
 
- import sys
- from workflow import Workflow, ICON_WEB, web
+import sys
+import argparse
 
- API_KEY = 'your-pinboard-api-key'
-
-
- def main(wf):
-     url = 'https://api.pinboard.in/v1/posts/recent'
-     params = dict(auth_token=API_KEY, count=20, format='json')
-     r = web.get(url, params)
-
-     # throw an error if request failed
-     # Workflow will catch this and show it to the user
-     r.raise_for_status()
-
-     # Parse the JSON returned by pinboard and extract the posts
-     result = r.json()
-     posts = result['posts']
-
-     # Loop through the returned posts and add an item for each to
-     # the list of results for Alfred
-     for post in posts:
-         wf.add_item(title=post['description'],
-                     subtitle=post['href'],
-                     icon=ICON_WEB)
-
-     # Send the results to Alfred as XML
-     wf.send_feedback()
+from workflow import ICON_SETTINGS
+from workflow import (Workflow, ICON_WARNING)
+import os
 
 
- if __name__ == u"__main__":
-     wf = Workflow()
-     sys.exit(wf.run(main))
+userpath = lambda p: os.path.expanduser(p)
+
+PROGRAMS = {
+    'ssh': userpath('~/.ssh/config'),
+    'nginx': '/usr/local/etc/nginx/nginx.conf',
+    'zsh': userpath('~/.zshrc'),
+    'hosts': '/etc/hosts',
+    'git': userpath('~/.gitconfig'),
+    'vim': userpath('~/.vimrc'),
+    'tumx': userpath('~/.tmux.conf'),
+    'mackup': userpath('~/.mackup.cfg'),
+    'shadowsocks': userpath('~/.ShadowsocksX/gfwlist.js'),
+}
+
+
+def main(wf):
+    parser = argparse.ArgumentParser()
+    parser.add_argument(dest='program', nargs='?', default=None)
+    args = parser.parse_args(wf.args)
+
+    user_program = args.program
+
+    if not user_program:
+        wf.add_item('Enter program name to continue', icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    programs = wf.filter(user_program, PROGRAMS)
+
+    if not programs:
+        wf.add_item('No program found', icon=ICON_WARNING)
+        wf.send_feedback()
+        return 0
+
+    for program in programs:
+        wf.add_item(title=program,
+                    subtitle=PROGRAMS[program],
+                    arg=PROGRAMS[program],
+                    valid=True,
+                    icon=ICON_SETTINGS)
+
+    wf.send_feedback()
+    return 0
+
+
+if __name__ == "__main__":
+    wf = Workflow()
+    sys.exit(wf.run(main))
