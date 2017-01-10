@@ -24,3 +24,6 @@ All program-path mappings are written in `conf_editor.py`. Modify this file to m
 - Automatically find conf files in sys
     - installed with brew
     - manually installed
+
+# License
+MIT License
