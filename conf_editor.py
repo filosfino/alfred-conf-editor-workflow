@@ -1,11 +1,12 @@
 # encoding: utf-8
 
+import os
 import sys
 import argparse
+import pipes
 
 from workflow import ICON_SETTINGS
 from workflow import (Workflow, ICON_WARNING)
-import os
 
 
 userpath = lambda p: os.path.expanduser(p)
@@ -18,8 +19,29 @@ PROGRAMS = {
     'git': userpath('~/.gitconfig'),
     'vim': userpath('~/.vimrc'),
     'tumx': userpath('~/.tmux.conf'),
-    'mackup': userpath('~/.mackup.cfg'),
+    'mackup': [
+        userpath('~/.mackup.cfg'),
+        userpath('~/.mackup'),
+    ],
     'shadowsocks': userpath('~/.ShadowsocksX/gfwlist.js'),
+    'fish': [
+        userpath('~/.config/fish/config.fish'),
+        userpath('~/.config/fish'),
+    ],
+    'conf_editor': [
+        userpath('~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/.config/Alfred/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C/conf_editor.py'),
+        userpath('~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/.config/Alfred/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C'),
+    ],
+    'ansible': [
+        userpath('~/.ansible.cfg'),
+        userpath('~/.ansible'),
+    ],
+    'projects': [
+        userpath('~/projects'),
+    ],
+    'virtualenv': [
+        userpath('~/.virtualenvs'),
+    ]
 }
 
 
@@ -43,9 +65,15 @@ def main(wf):
         return 0
 
     for program in programs:
+        if isinstance(PROGRAMS[program], (list, tuple)):
+            paths = [pipes.quote(path) for path in PROGRAMS[program]]
+            paths = ' '.join(paths)
+        else:
+            paths = pipes.quote(PROGRAMS[program])
+
         wf.add_item(title=program,
-                    subtitle=PROGRAMS[program],
-                    arg=PROGRAMS[program],
+                    subtitle=paths,
+                    arg=paths,
                     valid=True,
                     icon=ICON_SETTINGS)
 
@@ -55,4 +83,5 @@ def main(wf):
 
 if __name__ == "__main__":
     wf = Workflow()
+    log = wf.logger
     sys.exit(wf.run(main))
