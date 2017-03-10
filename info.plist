@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>conf.editor</string>
+	<string>com.fiosfino.editor-editor</string>
 	<key>connections</key>
 	<dict>
 		<key>1D1725BF-CF6C-4A9A-8EBC-3DBCFD52AB3A</key>

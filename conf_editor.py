@@ -12,13 +12,19 @@ from workflow import (Workflow, ICON_WARNING)
 userpath = lambda p: os.path.expanduser(p)
 
 PROGRAMS = {
-    'ssh': userpath('~/.ssh/config'),
-    'nginx': '/usr/local/etc/nginx/nginx.conf',
+    'ssh': [
+        userpath('~/.ssh/config'),
+        userpath('~/.ssh'),
+    ],
+    'nginx': [
+        '/usr/local/etc/nginx/nginx.conf',
+        '/usr/local/etc/nginx',
+    ],
     'zsh': userpath('~/.zshrc'),
     'hosts': '/etc/hosts',
     'git': userpath('~/.gitconfig'),
     'vim': userpath('~/.vimrc'),
-    'tumx': userpath('~/.tmux.conf'),
+    'tmux': userpath('~/.tmux.conf'),
     'mackup': [
         userpath('~/.mackup.cfg'),
         userpath('~/.mackup'),
@@ -27,6 +33,10 @@ PROGRAMS = {
     'fish': [
         userpath('~/.config/fish/config.fish'),
         userpath('~/.config/fish'),
+    ],
+    'fisherman': [
+        userpath('~/.config/fish/fishfile'),
+        userpath('~/.config/fisherman'),
     ],
     'conf_editor': [
         userpath('~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/.config/Alfred/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C/conf_editor.py'),
@@ -41,7 +51,18 @@ PROGRAMS = {
     ],
     'virtualenv': [
         userpath('~/.virtualenvs'),
-    ]
+    ],
+    'mysql': [
+        userpath('~/.my.cnf'),
+    ],
+    'scripts': [
+        userpath('~/cloud/Scripts/brew.sh'),
+        userpath('~/cloud/Scripts'),
+    ],
+    'ipython': [
+        userpath('~/.ipython/profile_default/ipython_config.py'),
+        userpath('~/.ipython/profile_default'),
+    ],
 }
 
 
