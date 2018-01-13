@@ -12,6 +12,10 @@ from workflow import (Workflow, ICON_WARNING)
 userpath = lambda p: os.path.expanduser(p)
 
 PROGRAMS = {
+    'supervisor': [
+        '/usr/local/etc/supervisor.d/',
+        '/usr/local/etc/supervisord.conf',
+    ],
     'ssh': [
         userpath('~/.ssh/config'),
         userpath('~/.ssh'),
@@ -19,6 +23,7 @@ PROGRAMS = {
     'nginx': [
         '/usr/local/etc/nginx/nginx.conf',
         '/usr/local/etc/nginx',
+        '/usr/local/Cellar/nginx-full/1.10.3',
     ],
     'zsh': userpath('~/.zshrc'),
     'hosts': '/etc/hosts',
@@ -48,6 +53,7 @@ PROGRAMS = {
     ],
     'projects': [
         userpath('~/projects'),
+        userpath('~/documents/projects'),
     ],
     'virtualenv': [
         userpath('~/.virtualenvs'),
@@ -55,13 +61,23 @@ PROGRAMS = {
     'mysql': [
         userpath('~/.my.cnf'),
     ],
+    'blog': [
+        userpath('~/documents/projects/filosfino/_config.yml'),
+        userpath('~/documents/projects/filosfino/themes/apollo/_config.yml'),
+        userpath('~/documents/projects/filosfino/'),
+        userpath('~/documents/projects/filosfino/source/_posts/'),
+    ],
     'scripts': [
-        userpath('~/cloud/Scripts/brew.sh'),
-        userpath('~/cloud/Scripts'),
+        userpath('~/Documents/Scripts/brew.sh'),
+        userpath('~/Documents/Scripts'),
     ],
     'ipython': [
         userpath('~/.ipython/profile_default/ipython_config.py'),
         userpath('~/.ipython/profile_default'),
+    ],
+    'jupyter': [
+        userpath('~/.jupyter'),
+        userpath('~/.jupyter/jupyter_notebook_config.py'),
     ],
 }
 
