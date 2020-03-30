@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 alfred-workflow = "*"
+pytest = "*"
 
 [packages]
 
