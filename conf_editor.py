@@ -9,77 +9,122 @@ from workflow import ICON_SETTINGS
 from workflow import (Workflow, ICON_WARNING)
 
 
-userpath = lambda p: os.path.expanduser(p)
+def expand_user_path(p):
+    return os.path.expanduser(p)
+
 
 PROGRAMS = {
     'supervisor': [
         '/usr/local/etc/supervisor.d/',
         '/usr/local/etc/supervisord.conf',
     ],
+    'ranger': [
+        '~/.config/ranger/rc.conf',
+        '~/.config/ranger',
+    ],
+    'cargo': [
+        '~/.cargo/config',
+    ],
     'ssh': [
-        userpath('~/.ssh/config'),
-        userpath('~/.ssh'),
+        '~/.ssh/config',
+        '~/.ssh',
+    ],
+    'starship': [
+        '~/.config/starship.toml',
+    ],
+    'rime': [
+        '~/Library/Rime',
+        '~/Library/Rime/squirrel.custom.yaml',
+        '~/Library/Rime/luna_pinyin_simp.custom.yaml',
+        '~/Library/Rime/luna_pinyin.custom.yaml',
+        '~/Library/Rime/installation.yaml',
+        '~/Library/Rime/default.custom.yaml',
+        '~/Dropbox/Sync/Rime',
     ],
     'nginx': [
         '/usr/local/etc/nginx/nginx.conf',
         '/usr/local/etc/nginx',
-        '/usr/local/Cellar/nginx-full/1.10.3',
     ],
-    'zsh': userpath('~/.zshrc'),
+    'zsh': '~/.zshrc',
     'hosts': '/etc/hosts',
-    'git': userpath('~/.gitconfig'),
-    'vim': userpath('~/.vimrc'),
-    'tmux': userpath('~/.tmux.conf'),
+    'git': [
+        '~/.gitconfig',
+        '~/.gitignore',
+    ],
+    'vim': [
+        '~/.vimrc',
+        '~/.vim',
+    ],
+    'nvim': [
+        '~/.config/nvim/init.vim',
+        '~/.config/nvim',
+    ],
+    'tmux': '~/.tmux.conf',
     'mackup': [
-        userpath('~/.mackup.cfg'),
-        userpath('~/.mackup'),
+        '~/.mackup.cfg',
+        '~/.mackup',
     ],
-    'shadowsocks': userpath('~/.ShadowsocksX/gfwlist.js'),
+    'shadowsocks': [
+        '~/.ShadowsocksX-NG/user-rule.txt',
+        '~/.ShadowsocksX-NG',
+    ],
+    'v2ray': [
+        '~/Dropbox/Sync/v2ray/client/config.json',
+        '~/Dropbox/Sync/v2ray/server/config.json',
+    ],
     'fish': [
-        userpath('~/.config/fish/config.fish'),
-        userpath('~/.config/fish'),
-    ],
-    'fisherman': [
-        userpath('~/.config/fish/fishfile'),
-        userpath('~/.config/fisherman'),
+        '~/.config/fish/config.fish',
+        '~/.config/fish',
+        '~/.config/fish/fishfile',
     ],
     'conf_editor': [
-        userpath('~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/.config/Alfred/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C/conf_editor.py'),
-        userpath('~/Library/Mobile Documents/com~apple~CloudDocs/Mackup/.config/Alfred/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C'),
-    ],
-    'ansible': [
-        userpath('~/.ansible.cfg'),
-        userpath('~/.ansible'),
-    ],
-    'projects': [
-        userpath('~/projects'),
-        userpath('~/documents/projects'),
-    ],
-    'virtualenv': [
-        userpath('~/.virtualenvs'),
-    ],
-    'mysql': [
-        userpath('~/.my.cnf'),
+        '~/Dropbox/Sync/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C/conf_editor.py',
+        '~/Dropbox/Sync/Alfred.alfredpreferences/workflows/user.workflow.E39B5FB1-DC6B-439A-9448-7184DB0ECA3C',
     ],
     'blog': [
-        userpath('~/documents/projects/filosfino/_config.yml'),
-        userpath('~/documents/projects/filosfino/themes/apollo/_config.yml'),
-        userpath('~/documents/projects/filosfino/'),
-        userpath('~/documents/projects/filosfino/source/_posts/'),
+        "~/projects/blog",
+    ],
+    'ansible': [
+        '~/.ansible.cfg',
+        '~/.ansible',
+    ],
+    'projects': [
+        '~/projects',
+    ],
+    'virtualenv': [
+        '~/.virtualenvs',
+    ],
+    'mysql': [
+        '~/.my.cnf',
     ],
     'scripts': [
-        userpath('~/Documents/Scripts/brew.sh'),
-        userpath('~/Documents/Scripts'),
+        '~/Dropbox/scripts/brew.sh',
+        '~/Dropbox/scripts',
     ],
     'ipython': [
-        userpath('~/.ipython/profile_default/ipython_config.py'),
-        userpath('~/.ipython/profile_default'),
+        '~/.ipython/profile_default/ipython_config.py',
+        '~/.ipython/profile_default',
+        '~/.ipython',
     ],
     'jupyter': [
-        userpath('~/.jupyter'),
-        userpath('~/.jupyter/jupyter_notebook_config.py'),
+        '~/.jupyter',
+        '~/.jupyter/jupyter_notebook_config.py',
+    ],
+    'npm': [
+        '~/.npmrc',
+    ],
+    'yarn': [
+        '~/.yarnrc',
+    ],
+    'rclone': [
+        '~/.config/rclone/rclone.conf',
+    ],
+    'alacritty': [
+        '~/.config/alacritty/alacritty.yml',
     ],
 }
+
+PROGRAMS = {key: list(map(expand_user_path, PROGRAMS[key])) for key in PROGRAMS}
 
 
 def main(wf):
