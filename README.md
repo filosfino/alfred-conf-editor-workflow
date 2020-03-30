@@ -7,7 +7,7 @@ Find & edit configuration files with **Alfred workflow**.
 ce <program_name>
 ```
 
-Hit enter will open the conf file in SublimeText.
+Hit enter will open the conf file in SublimeText, modify the workflow with your favourite editor.
 
 Hold cmd to reveal in finder.
 
